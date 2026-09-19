@@ -330,6 +330,8 @@ button {
 
 .about-content {
   max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .about h2 {
@@ -354,7 +356,7 @@ button {
 
 .about p {
   max-width: 650px;
-  margin-top: 35px;
+  margin: 35px auto 0;
 
   font-size: 1.05rem;
   line-height: 1.8;
@@ -369,13 +371,15 @@ button {
 
 .events-header {
   max-width: 800px;
-  margin-bottom: 70px;
+  margin: 0 auto 70px;
+  text-align: center;
 }
 
 .events h2 {
   font-size: clamp(2.5rem, 6vw, 5rem);
   line-height: 1;
   letter-spacing: -2px;
+  text-align: center;
 }
 
 .events-grid {
