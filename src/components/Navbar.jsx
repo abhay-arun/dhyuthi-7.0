@@ -27,6 +27,11 @@ function Navbar() {
           <a href="#events">Events</a>
           <a href="#tracks">Tracks</a>
           <a href="#schedule">Schedule</a>
+          <a href="#pre-events">Pre-Events</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#faq">FAQ</a>
+          <a href="#venue">Venue</a>
+          <a href="#contact">Contact</a>
         </div>
 
         <button
