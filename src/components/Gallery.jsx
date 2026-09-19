@@ -1,23 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function Gallery() {
   const images = [
-    "Image 1",
-    "Image 2",
-    "Image 3",
+    {
+      src: "/brand/dhythi-image1.webp",
+      accent: "linear-gradient(135deg, rgba(0,181,226,0.28), rgba(0,98,155,0.12))",
+    },
+    {
+      src: "/brand/dhythi-image2.webp",
+      accent: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,98,155,0.2))",
+    },
+    {
+      src: "/brand/dhythi-image3.webp",
+      accent: "linear-gradient(135deg, rgba(0,98,155,0.22), rgba(255,255,255,0.05))",
+    },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   const nextImage = () => {
-    setCurrentIndex((currentIndex + 1) % images.length);
+    setCurrentIndex((prev) => (prev + 1) % images.length);
   };
 
   const previousImage = () => {
-    setCurrentIndex(
-      (currentIndex - 1 + images.length) % images.length
-    );
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const getSlideClass = (index) => {
+    const diff = (index - currentIndex + images.length) % images.length;
+
+    if (diff === 0) return "active";
+    if (diff === 1) return "next";
+    if (diff === images.length - 1) return "prev";
+    return "hidden";
   };
 
   return (
@@ -36,7 +60,6 @@ function Gallery() {
       </div>
 
       <div className="gallery-carousel">
-
         <button
           className="gallery-arrow gallery-arrow-left"
           onClick={previousImage}
@@ -45,9 +68,15 @@ function Gallery() {
           <ChevronLeft size={24} />
         </button>
 
-        <div className="gallery-image-box">
-          <span>{images[currentIndex]}</span>
-        </div>
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`gallery-image-box ${getSlideClass(index)}`}
+            style={{
+              background: `linear-gradient(135deg, rgba(10,10,10,0.25), rgba(10,10,10,0.1)), url(${image.src}) center/cover no-repeat`,
+            }}
+          />
+        ))}
 
         <button
           className="gallery-arrow gallery-arrow-right"
@@ -56,16 +85,13 @@ function Gallery() {
         >
           <ChevronRight size={24} />
         </button>
-
       </div>
 
       <div className="gallery-dots">
         {images.map((_, index) => (
           <button
             key={index}
-            className={`gallery-dot ${
-              currentIndex === index ? "active" : ""
-            }`}
+            className={`gallery-dot ${currentIndex === index ? "active" : ""}`}
             onClick={() => setCurrentIndex(index)}
             aria-label={`Go to image ${index + 1}`}
           />
